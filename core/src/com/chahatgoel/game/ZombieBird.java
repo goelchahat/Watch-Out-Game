@@ -14,36 +14,37 @@ import java.util.Random;
 public class ZombieBird extends ApplicationAdapter {
     SpriteBatch batch;
     Texture background;
-    Texture bird;
+    Texture ghost;
     Texture gameover;
     Texture toptube;
     Texture bottomtube;
-    float birdY = 0;
+    float ghostY = 0;
     float velocity = 0;
     int gameState = 0;
-    float gap = 400;
+    float gap = 500;
     Random randomGenerator;
     float maxTubeOffSet;
-    float tubeVelocity = 6;
+    float tubeVelocity = 4;
     int noOfTubes = 4;
     float[] tubeX = new float[noOfTubes];
     float[] tubeOffSet = new float[noOfTubes];
     float distance;
-    Circle birdCircle;
+    Circle ghostCircle;
     Rectangle[] topTubeRect;
     Rectangle[] bottomTubeRect;
+    float gravity=2;
 
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         background = new Texture("bg1.jpg");
-        bird = new Texture("ghost.png");
-        toptube = new Texture("toptube.png");
+        ghost = new Texture("ghost.png");
+        toptube = new Texture("spider1.png");
         bottomtube = new Texture("bottomtube.png");
 
         randomGenerator = new Random();
-        birdCircle = new Circle();
+        ghostCircle = new Circle();
         gameover = new Texture("download.jpg");
         topTubeRect = new Rectangle[noOfTubes];
         bottomTubeRect = new Rectangle[noOfTubes];
@@ -55,7 +56,7 @@ public class ZombieBird extends ApplicationAdapter {
     }
 
     public void startgame() {
-        birdY = Gdx.graphics.getHeight() / 2 - bird.getHeight() / 2;
+        ghostY = Gdx.graphics.getHeight() / 2 - ghost.getHeight() / 2;
         for (int i = 0; i < noOfTubes; i++) {
             tubeOffSet[i] = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - gap - 300);
             tubeX[i] = Gdx.graphics.getWidth() / 2 - toptube.getWidth() / 2 + Gdx.graphics.getWidth() + i * distance;
@@ -96,12 +97,12 @@ public class ZombieBird extends ApplicationAdapter {
                 bottomTubeRect[i] = new Rectangle(tubeX[i], Gdx.graphics.getHeight() / 2 - gap / 2 - bottomtube.getHeight() + tubeOffSet[i], bottomtube.getWidth(), bottomtube.getHeight());
             }
 
-            if (birdY > 0)
+            if (ghostY > 0)
             {
 
 
-                velocity++;
-                birdY -= velocity;
+                velocity= velocity+gravity;
+                ghostY -= velocity;
             }
             else
             {
@@ -129,10 +130,10 @@ public class ZombieBird extends ApplicationAdapter {
             }
         }
 
-            batch.draw(bird, Gdx.graphics.getWidth() / 2 - bird.getWidth() / 2, birdY);
+            batch.draw(ghost, Gdx.graphics.getWidth() / 2 - ghost.getWidth() / 2, ghostY);
 
 
-            birdCircle.set(Gdx.graphics.getWidth() / 2, birdY + bird.getHeight() / 2, bird.getWidth() / 2);
+            ghostCircle.set(Gdx.graphics.getWidth() / 2, ghostY + ghost.getHeight() / 2, ghost.getWidth() / 2);
 
 
 
@@ -140,7 +141,7 @@ public class ZombieBird extends ApplicationAdapter {
             {
 
 
-                if (Intersector.overlaps(birdCircle, topTubeRect[i]) || Intersector.overlaps(birdCircle, bottomTubeRect[i]))
+                if (Intersector.overlaps(ghostCircle, topTubeRect[i]) || Intersector.overlaps(ghostCircle, bottomTubeRect[i]))
                 {
 
                     Gdx.app.log("Collision", "Yes!");
