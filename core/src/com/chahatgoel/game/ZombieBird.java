@@ -38,13 +38,13 @@ public class ZombieBird extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         background = new Texture("bg1.jpg");
-        bird = new Texture("bird.png");
+        bird = new Texture("ghost.png");
         toptube = new Texture("toptube.png");
         bottomtube = new Texture("bottomtube.png");
 
         randomGenerator = new Random();
         birdCircle = new Circle();
-        gameover = new Texture("download.png");
+        gameover = new Texture("download.jpg");
         topTubeRect = new Rectangle[noOfTubes];
         bottomTubeRect = new Rectangle[noOfTubes];
         distance = Gdx.graphics.getWidth() * 3 / 4;
@@ -57,7 +57,7 @@ public class ZombieBird extends ApplicationAdapter {
     public void startgame() {
         birdY = Gdx.graphics.getHeight() / 2 - bird.getHeight() / 2;
         for (int i = 0; i < noOfTubes; i++) {
-            tubeOffSet[i] = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - gap - 200);
+            tubeOffSet[i] = (randomGenerator.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - gap - 300);
             tubeX[i] = Gdx.graphics.getWidth() / 2 - toptube.getWidth() / 2 + Gdx.graphics.getWidth() + i * distance;
 
             topTubeRect[i] = new Rectangle();
