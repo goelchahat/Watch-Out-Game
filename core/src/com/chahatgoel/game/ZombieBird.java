@@ -40,7 +40,7 @@ public class ZombieBird extends ApplicationAdapter {
         batch = new SpriteBatch();
         background = new Texture("bg1.jpg");
         ghost = new Texture("ghost.png");
-        toptube = new Texture("spider1.png");
+        toptube = new Texture("spider.png");
         bottomtube = new Texture("bottomtube.png");
 
         randomGenerator = new Random();
