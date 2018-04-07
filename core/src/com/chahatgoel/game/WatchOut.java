@@ -2,8 +2,10 @@ package com.chahatgoel.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
@@ -11,7 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
 
-public class ZombieBird extends ApplicationAdapter {
+public class WatchOut extends ApplicationAdapter {
     SpriteBatch batch;
     Texture background;
     Texture ghost;
@@ -33,6 +35,9 @@ public class ZombieBird extends ApplicationAdapter {
     Rectangle[] topTubeRect;
     Rectangle[] bottomTubeRect;
     float gravity=2;
+    int score = 0;
+    int scoringTube = 0;
+    BitmapFont font;
 
 
     @Override
@@ -42,6 +47,9 @@ public class ZombieBird extends ApplicationAdapter {
         ghost = new Texture("ghost.png");
         toptube = new Texture("spider.png");
         bottomtube = new Texture("bottomtube.png");
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
+        font.getData().setScale(10);
 
         randomGenerator = new Random();
         ghostCircle = new Circle();
@@ -74,6 +82,24 @@ public class ZombieBird extends ApplicationAdapter {
         batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         if (gameState == 1) {
+
+            if (tubeX[scoringTube] < Gdx.graphics.getWidth() / 2) {
+
+                score++;
+
+                Gdx.app.log("Score", String.valueOf(score));
+
+                if (scoringTube < noOfTubes - 1) {
+
+                    scoringTube++;
+
+                } else {
+
+                    scoringTube = 0;
+
+                }
+
+            }
 
 
             if (Gdx.input.justTouched()) {
@@ -125,13 +151,15 @@ public class ZombieBird extends ApplicationAdapter {
 
                 gameState = 1;
                 startgame();
+                score = 0;
+                scoringTube = 0;
 
                 velocity = 0;
             }
         }
 
             batch.draw(ghost, Gdx.graphics.getWidth() / 2 - ghost.getWidth() / 2, ghostY);
-
+             font.draw(batch, String.valueOf(score), 100, 200);
 
             ghostCircle.set(Gdx.graphics.getWidth() / 2, ghostY + ghost.getHeight() / 2, ghost.getWidth() / 2);
 
