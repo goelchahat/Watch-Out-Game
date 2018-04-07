@@ -44,12 +44,12 @@ public class WatchOut extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         background = new Texture("bg1.jpg");
-        ghost = new Texture("ghost.png");
+        ghost = new Texture("ghostfinal.png");
         toptube = new Texture("spider.png");
         bottomtube = new Texture("bottomtube.png");
         font = new BitmapFont();
         font.setColor(Color.WHITE);
-        font.getData().setScale(10);
+        font.getData().setScale(20);
 
         randomGenerator = new Random();
         ghostCircle = new Circle();
