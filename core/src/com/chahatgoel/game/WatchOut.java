@@ -49,7 +49,7 @@ public class WatchOut extends ApplicationAdapter {
         bottomtube = new Texture("bottomtube.png");
         font = new BitmapFont();
         font.setColor(Color.WHITE);
-        font.getData().setScale(20);
+        font.getData().setScale(6);
 
         randomGenerator = new Random();
         ghostCircle = new Circle();
